@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    /* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* Card Container */
+#card {
+    width: 1000px;
+    margin: 20px auto 0; /* Add top margin for spacing from navbar */
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    perspective: 1000px;
+    overflow: hidden;
+    position: relative;
+    height: 500px;
+    display: flex;
+    flex-direction: row;
+    font-family: 'Poppins', sans-serif; /* Formal Font */
+}
+
+
+/* Flip when the class 'flip' is added */
+#card.flip #card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Adjust login/signup form container */
+#card-content {
+  width: 50%;
+  padding: 20px;
+  background-color: #ffffff;
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  font-size: 16px;
+  line-height: 1.6;
+  height: 100%;
+  margin-left: auto;
+}
+
+#history-card-content {
+  width: 50%;
+  padding: 20px;
+  background-color: #ffffff;
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  font-size: 16px;
+  line-height: 1.6;
+  height: 100%;
+  margin-left: auto;
+}
+
+#card-content h2 {
+    font-size: 28px;
+    font-weight: 600;
+    color: #333; /* Darker black for heading */
+    margin-bottom: 10px;
+}
+
+#card-content label {
+    color: #333; /* Dark black for labels */
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+#card-content input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    color: #333; /* Input text color */
+}
+
+#card-image {
+  width: 40%; /* Adjust width of image container */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 30px;
+}
+
+#card-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* Buttons */
+#submit-btn, #signup-btn {
+    background: #4CAF50;
+    color: white;
+    padding: 15px 0;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px; /* Slightly bigger */
+    font-weight: 600;
+    margin-top: 20px;
+    width: 100%; /* Full-width button */
+    text-transform: uppercase; /* Uppercase for emphasis */
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+#submit-btn:hover, #signup-btn:hover {
+    background-color: #45a049;
+}
+
+/* Links */
+#forgot-pass, #signup-link, #login-link {
+    text-align: center;
+    color: #4CAF50;
+    margin-top: 15px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    width: 100%; /* Make sure the text spans full width */
+    display: inline-block; /* Ensure proper centering */
+}
+
+#forgot-pass:hover, #signup-link:hover, #login-link:hover {
+    text-decoration: underline;
+    color: #333; /* Dark black on hover */
+}
+
+/* Body */
+body {
+    background: -webkit-linear-gradient(bottom, #2dbd6e, #a6f77b);
+    background-repeat: repeat;
+    display: flex;
+    flex-direction: column; /* Change to column layout */
+    justify-content: center;
+    align-items: center;
+    height: 140vh;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Header Styles */
+header {
+    text-align: center; /* Center the header text */
+    margin-bottom: 0; /* Remove margin below the header */
+    padding-top: 10px; /* Add a bit of padding on top */
+}
+
+header h1 {
+    font-family: 'Poppins', sans-serif; /* Use the same font for consistency */
+    font-size: 24px; /* Adjust size as needed */
+    color: #4CAF50; /* Set color to match the theme */
+}
+
+/* Navigation Bar */
+nav {
+  text-align: center; /* Center the navigation */
+  margin-bottom: 20px; /* Increase spacing below the navbar */
+  background-color: #333; /* Set navbar to black */
+  padding: 5px 0; /* Add padding for top and bottom */
+  /*z-index: 10; /* Higher z-index than card */
+  /*position: relative; /* Ensure it's positioned above other elements */
+  border-radius: 40px; /* Rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional shadow for depth */
+  width: calc(100% - 20px); /* Full width minus padding */
+  margin: 0 auto; /* Center the navbar horizontally */
+}
+
+
+nav ul {
+  list-style-type: none; /* Remove bullets */
+  padding: 0; /* Remove padding */
+  display: flex; /* Center the nav items */
+  justify-content: center; /* Center items horizontally */
+  align-items: center; /* Ensure vertical alignment of all items */
+}
+
+nav ul li {
+  display: inline-flex; /* Horizontal layout and flex support */
+  align-items: center; /* Vertically align items */
+  margin: 0 15px; /* Spacing between items */
+}
+nav ul li a {
+  text-decoration: none; /* Remove underlines */
+  color: white; /* Change text color to white */
+  font-weight: 600; /* Bold text */
+  font-family: 'Poppins', sans-serif; /* Formal font */
+  display: inline-flex; /* Ensure alignment */
+  align-items: center; /* Center vertically */
+  padding: 10px 15px; /* Padding to adjust spacing */
+}
+
+nav ul li a:hover {
+  color: #4CAF50; /* Green text on hover */
+}
+
+/* Dropdown Menu */
+nav ul li ul {
+    display: none; /* Hide the dropdown by default */
+    position: absolute; /* Position it absolutely */
+    background: white; /* Background color */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Dropdown shadow */
+    z-index: 11; /* Ensure dropdown appears above everything */
+}
+
+nav ul li:hover ul {
+    display: block; /* Show the dropdown on hover */
+    color: #4CAF50; /* Green text on hover */
+}
+
+nav ul li ul li {
+    display: block; /* Vertical layout for dropdown items */
+    margin: 0; /* Remove margins */
+    padding: 10px; /* Padding for dropdown items */
+}
+
+nav ul li ul li a {
+    color: #4CAF50; /* Green text for dropdown */
+}
+nav ul li ul li a:hover {
+    background-color: #ffffff; /* Darker background on hover */
+    color: #000000; /* Black text on hover */
+}
+
+/* Button and Link Hover Effects */
+button, nav ul li a {
+    color: white; /* Button text color */
+    padding: 5px 10px; /* Button padding */
+    border: none; /* Remove border */
+    cursor: pointer; /* Cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    font-weight: 600; /* Font weight */
+    text-transform: uppercase; /* Uppercase for emphasis */
+    transition: background-color 0.3s ease; /* Smooth transition */
+    text-align: center; /* Center the text */
+    display: inline-block; /* Inline block for buttons */
+}
+
+button:hover, nav ul li a:hover {
+    color: #45a049; /* Darker green on hover */
+}
+
+/* Profile Section */
+#profile {
+  display: flex;
+  align-items: center; /* Ensure vertical alignment */
+  text-decoration: none; /* Remove underline from text */
+  color: white; /* Profile text color */
+  font-weight: 600;
+  margin: 0; /* Remove margin to align properly */
+}
+
+.profile-img {
+  width: 40px; /* Set the size of the image */
+  height: 40px;
+  border-radius: 50%; /* Make the image circular */
+  margin-right: 10px; /* Space between the image and name */
+  object-fit: cover; /* Ensure the image covers its container */
+}
+
+.profile-name {
+  font-size: 16px;
+  color: white; /* Match navbar text color */
+  margin: 0; /* Ensure no extra margin */
+}
+
+/* Sidebar */
+.sidebar {
+  width: 200px;
+  height: 1000px;
+  left: 0%;
+  position: fixed; /* Ensure sidebar stays in the flow below navbar */
+  background-color: #333; /* Dark background */
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  margin-top: 20px; /* Ensure there's some spacing between navbar and sidebar */
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar ul li {
+  margin: 20px 0;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  padding: 10px 20px;
+  display: block;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar ul li a:hover {
+  background-color: #4CAF50;
+}
+
+/* Adjust main content layout */
+main {
+  display: flex;
+  flex-direction: column; /* Stack navbar and sidebar vertically */
+  padding: 20px;
+}
+
+#card.flip #card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Adjust login/signup form container */
+
+#card-content h2 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #333; /* Darker black for heading */
+  margin-bottom: 10px;
+}
+
+#card-content input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  color: #333; /* Input text color */
+}
+
+#card {
+  width: 1000px; /* Increased width */
+  height: 700px; /* Increased height */
+  margin: 20px auto; /* Center the card */
+  background: linear-gradient(135deg, #f7f7f7, #e3e3e3); /* Gradient background */
+  border-radius: 15px; /* Increased rounding */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
+  perspective: 1000px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  font-family: 'Poppins', sans-serif; /* Formal Font */
+  transition: transform 0.3s ease; /* Add a transition for hover effect */
+}
+#card:hover {
+  transform: scale(1.02); /* Slightly scale up on hover */
+}
+#card-inner {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s ease;
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+/* Common styles for card faces */
+.card-face {
+  width: 99%;
+  height: 92%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  backface-visibility: hidden;
+  padding: 40px 20px;
+  background-color: #fff;
+  border: 1px solid #ccc; /* Add a subtle border */
+  border-radius: 15px; /* Match the card rounding */
+}
+#submit-btn:hover, #signup-btn:hover {
+  background-color: #45a049; /* Darker green on hover */
+  transform: scale(1.05); /* Scale up buttons on hover */
+}
+
+#submit-btn, #signup-btn {
+  transition: transform 0.2s ease; /* Smooth transition for buttons */
+}
+
+/* Links Hover Effects */
+#forgot-pass:hover, #signup-link:hover, #login-link:hover {
+  text-decoration: underline;
+  color: #333; /* Dark black on hover */
+  transition: color 0.3s ease; /* Smooth transition for links */
+}
+/* Default view for URL Phishing Detection */
+#urlcard {
+  transform: rotateY(0deg);
+}
+
+/* Hidden view for Email Phishing Detection */
+#emailcard {
+  transform: rotateY(180deg);
+}
+
+.card-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+#history-table {
+      display: none;
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    #history-table th, #history-table td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: left;
+    }
+
+    #history-table th {
+      background-color: #f2f2f2;
+    }
+
+    #history-section {
+      display: none; /* Hide the history section initially */
+    }
+  </style>
+</head>
+
+<body>
+   <!-- Header -->
+   <header>
+    <h1>AI Phishing Detection Model</h1>
+   </header>
+
+<!-- Navigation Bar -->
+<nav>
+  <ul>
+      <li><a href="#">Tools</a>
+          <ul>
+              <li><a href="#" onclick="flipToUrl()">URL Phishing Detection</a></li>
+              <li><a href="#" onclick="flipToEmail()">Email Header Phishing Model</a></li>
+          </ul>
+      </li>
+
+      <!-- Profile Section -->
+      <li>
+          <a href="#" id="profile">
+            {% if email %}
+              <span class="profile-name">{{email}}</span>
+            {% endif %}
+              <img src="profile.png" alt="Profile" class="profile-img">
+          </a>
+      </li>
+  </ul>
+</nav>
+<main>
+  <aside class="sidebar">
+      <ul>
+        <li><a href="#" onclick="showHistory()">History</a></li>
+        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+
+        
+      </ul>
+  </aside>
+  
+  <!-- Updated Flip Card Container -->
+  <div id="card">
+    <div id="card-inner">
+        <!-- URL Phishing Detection Form (URLCard) -->
+        <div id="urlcard" class="card-face">
+            <div id="card-content">
+                <h2>Phishing URL Detection</h2>
+                <form method="POST">
+                    <label for="url">Enter URL:</label>
+                    <input type="text" name="url" id="url" placeholder="https://example.com" required>
+                    <button type="submit">Predict</button>
+                </form>
+
+                {% if result %}
+                <div class="results">
+                    <h3>Extracted Features:</h3>
+                    <ul>
+                        {% for key, value in features.items() %}
+                        <li><strong>{{ key }}:</strong> {{ value }}</li>
+                        {% endfor %}
+                    </ul>
+                    <h2>Results</h2>
+                    <p><strong>URL:</strong> {{ url }}</p>
+                    <p><strong>Prediction:</strong> {{ result }}</p>
+                </div>
+                {% endif %}
+            </div>
+            <div id="card-image">
+              <img src="D:/final%202/templates/url.png" alt="Phishing Detection Image">
+            </div>
+        </div>
+
+        <!-- Email Phishing Detection Form (EmailCard) -->
+        <div id="emailcard" class="card-face">
+            <div id="card-content">
+                <h2>Email Header Phishing Detection</h2>
+                <form method="POST">
+                    <label for="email">Enter Email Header:</label>
+                    <textarea name="emailHeader" id="emailHeader" placeholder="Paste email header here" required></textarea>
+                    <button type="submit">Analyze</button>
+                </form>
+
+                {% if result %}
+                <div class="results">
+                    <h3>Email Features:</h3>
+                    <ul>
+                        {% for key, value in features.items() %}
+                        <li><strong>{{ key }}:</strong> {{ value }}</li>
+                        {% endfor %}
+                    </ul>
+                    <h2>Results</h2>
+                    <p><strong>Email Header:</strong> {{ emailHeader }}</p>
+                    <p><strong>Prediction:</strong> {{ result }}</p>
+                </div>
+                {% endif %}
+            </div>
+            <div id="card-image">
+              <img src="C:\Users\mohsi\Downloads\final 2\templates\email.png" alt="Phishing Detection Image">
+            </div>
+        </div>
+
+      <!-- History Section -->
+      <div id="history-section" class="card-face">
+        <div id="Hisroy-card-content">
+          <h2>History</h2>
+          <table id="history-table">
+            <thead>
+              <tr>
+                <th>Sr.no</th>
+                <th>URL</th>
+                <th>Result</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for record in history %}
+              <tr>
+                  <td>{{ loop.index }}</td>
+                  <td>{{ record['url'] }}</td>
+                  <td>{{ record['result'] }}</td>
+              </tr>
+              {% else %}
+              <tr>
+                  <td colspan="3">No history found.</td>
+              </tr>
+              {% endfor %}
+          </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script>
+    
+
+    function flipToUrl() {
+    document.getElementById('card').classList.remove('flip');
+}
+
+function flipToEmail() {
+    document.getElementById('card').classList.add('flip');
+}
+
+function showHistory() {
+    const historySection = document.getElementById('history-section');
+    const historyTable = document.getElementById('history-table');
+
+    // Toggle the visibility of the history section and table
+    if (historySection.style.display === "none" || historySection.style.display === "") {
+        historySection.style.display = "block"; // Show the history section
+        historyTable.style.display = "table"; // Show the history table
+    } else {
+        historySection.style.display = "none"; // Hide the history section
+        historyTable.style.display = "none"; // Hide the history table
+    }
+}
+</script>
+</body>
+</html>
